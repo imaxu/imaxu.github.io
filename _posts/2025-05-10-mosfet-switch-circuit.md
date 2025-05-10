@@ -39,8 +39,8 @@ graph TB
 graph TB;
     A[Do you have a problem in your life?]
     B[Then don't worry]
-    C[Can you do something about it?]
-    A--no-->B;
+    C(Can you do something about it?)
+    A --> B -- no -->B;
     A--yes-->C;
     C--no-->B;
     C--yes-->B;
@@ -48,12 +48,10 @@ graph TB;
 
 ### 详细电路图
 ```mermaid
-graph TB
-    %% 电源输入
+graph TB;
     VCC[+3.3V]
     GND[GND]
     
-    %% 按键网络
     R1(1MΩ电阻)
     SW1[轻触开关]
     C1(100nF电容)
@@ -61,7 +59,6 @@ graph TB
     SW1 --> C1 --> GND
     SW1 -->|100kΩ| Q2[BC847B]
     
-    %% 控制逻辑
     Q2 -->|10kΩ| GND
     Q2 --> Q1[2N7002K]
     
