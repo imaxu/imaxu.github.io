@@ -23,7 +23,7 @@ url     : # the base hostname & protocol for your site e.g. https://www.someone.
 baseurl : # does not include hostname
 title   : 笔记
 description: > # this means to ignore newlines until "Language & timezone"
-  Your Site Description
+  基于 Jekyll 的个人博客，使用了 Jekyll Text Theme 主题，支持多种语言和社交平台的集成。记录日常琐事，灵感和学习笔记。
 
 
 ## => Language and Timezone
