@@ -4,6 +4,7 @@ title:  "基于MOSFET的低功耗自锁开关电路设计"
 date:   2025-05-08 18:03:28 +0800
 categories: circuits
 math: true
+mathjax: true
 mermaid: true
 ---
 [![Supported Versions](https://img.shields.io/badge/是否验证-待验证-yellow)]()
@@ -26,54 +27,73 @@ graph TB
     subgraph 电源输入
         VCC[3.3V] --> SW[按键网络]
     end
+
     subgraph 控制逻辑
         SW -->|触发| LOGIC[双稳态电路]
     end
+
     subgraph 功率输出
         LOGIC --> MOSFET[开关管]
         MOSFET --> LOAD[负载]
     end
+
+    %% 连接电源到负载（如果需要）
+    VCC --> MOSFET
+    LOAD --> GND[GND]
 ```
 
-```mermaid
-graph TB;
-    A[Do you have a problem in your life?]
-    B[Then don't worry]
-    C(Can you do something about it?)
-    A --> B -- no -->B;
-    A--yes-->C;
-    C--no-->B;
-    C--yes-->B;
-```
 
 ### 详细电路图
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#ffffff'}}}%%
 graph TB;
-    VCC[+3.3V]
-    GND[GND]
+    %% 电源定义
+    VCC[+3.3V]:::power
+    GND[GND]:::ground
     
-    R1(1MΩ电阻)
-    SW1[轻触开关]
-    C1(100nF电容)
-    VCC --> R1 --> SW1
-    SW1 --> C1 --> GND
-    SW1 -->|100kΩ| Q2[BC847B]
+    %% 按键网络
+    SW1[SW1]:::switch
+    VCC -- 上拉 --> R1[1MΩ]
+    R1 --> SW1
+    SW1 --> C1[100nF]
+    C1 -->|触发| Q2
     
-    Q2 -->|10kΩ| GND
-    Q2 --> Q1[2N7002K]
+    %% 双稳态控制
+    Q2[BC847B]:::bjt
+    Q1[2N7002K]:::mosfet
+    SW1 --> R2[100kΩ]
+    R2 -->|基极| Q2
+    Q2 -->|发射极| R3[10kΩ]
+    R3 --> GND
     
-    %% 功率输出
-    VCC --> Q1 --> LOAD[负载]
+    %% MOSFET开关
+    Q2 -->|集电极| Q1_G[Gate]
+    Q1_G --> Q1
+    VCC -->|漏极| Q1_D[Drain]
+    Q1_D --> LOAD[负载]
     LOAD --> GND
+    Q1 -->|源极| Q1_S[Source]
+    Q1_S --> GND
+    
+    %% 正反馈路径
+    Q1_D -.->|R2反馈| Q2
     
     %% 样式定义
-    classDef power fill:#ffdd33,stroke:#333;
-    classDef ground fill:#66cc99,stroke:#333;
-    class VCC power;
-    class GND ground;
+    classDef power fill:#ff9e4f,stroke:#333,stroke-width:2px;
+    classDef ground fill:#6c8ebf,stroke:#333,stroke-width:2px;
+    classDef switch fill:#d6b656,stroke:#333;
+    classDef mosfet fill:#d79b00,stroke:#333;
+    classDef bjt fill:#9673a6,stroke:#333;
+    classDef cap fill:#82b366,stroke:#333;
+    class C1 cap;
+    
+    %% 连接点标注
+    linkStyle 0,1,2,3,4,5,6,7,8,9 stroke:#333,stroke-width:2px;
+    linkStyle 10 stroke:#333,stroke-width:1px,stroke-dasharray:5;
 ```
 
 ## 完整BOM清单
+
 | 位号 | 类型       | 参数             | 封装     | 厂商       | 替代型号       |
 |------|------------|------------------|----------|------------|----------------|
 | Q1   | MOSFET     | 2N7002K          | SOT-23   | ON Semi    | DMG2302UX-7    |
@@ -98,6 +118,7 @@ graph LR
 ```
 
 ### 关键尺寸
+
 | 项目               | 要求         |
 |--------------------|--------------|
 | 功率走线宽度       | ≥1mm        |
@@ -106,6 +127,7 @@ graph LR
 
 ## 性能测试
 ### 电气特性
+
 $$
 \begin{array}{|c|c|c|}
 \hline
