@@ -45,22 +45,21 @@ graph TB
 
 ### 详细电路图
 ```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#ffffff'}}}%%
 graph TB;
     %% 电源定义
-    VCC[+3.3V]:::power
-    GND[GND]:::ground
+    VCC[+3.3V]
+    GND[GND]
     
     %% 按键网络
-    SW1[SW1]:::switch
+    SW1[SW1]
     VCC -- 上拉 --> R1[1MΩ]
     R1 --> SW1
     SW1 --> C1[100nF]
     C1 -->|触发| Q2
     
     %% 双稳态控制
-    Q2[BC847B]:::bjt
-    Q1[2N7002K]:::mosfet
+    Q2[BC847B]
+    Q1[2N7002K]
     SW1 --> R2[100kΩ]
     R2 -->|基极| Q2
     Q2 -->|发射极| R3[10kΩ]
@@ -86,10 +85,12 @@ graph TB;
     classDef bjt fill:#9673a6,stroke:#333;
     classDef cap fill:#82b366,stroke:#333;
     class C1 cap;
+    class VCC power;
+    class GND ground;
+    class SW1 switch;
+    class Q2 bjt;
+    class Q1 mosfet;
     
-    %% 连接点标注
-    linkStyle 0,1,2,3,4,5,6,7,8,9 stroke:#333,stroke-width:2px;
-    linkStyle 10 stroke:#333,stroke-width:1px,stroke-dasharray:5;
 ```
 
 ## 完整BOM清单
