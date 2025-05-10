@@ -1,10 +1,12 @@
 ---
 layout: article
-title:  "yess! my notes"
+title:  "基于MOSFET的低功耗自锁开关电路设计"
 date:   2025-05-08 18:03:28 +0800
 categories: circuits
 mermaid: true
 ---
+
+[![Supported Versions](https://img.shields.io/badge/是否验证-待验证-yellow)]()
 
 以下是整合所有技术要点的完整设计文档，包含专业级原理图、BOM清单和电路说明，符合工业设计标准：
 
