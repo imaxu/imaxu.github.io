@@ -17,12 +17,12 @@ mermaid: true
 **认证标准**：IEC 61000-4-2 (ESD), IPC-A-610 Class 2  
 
 ## 一、专业原理图
-### 1. 核心电路图（Mermaid语法）
+### 1. 核心电路图
 ```mermaid
 %% 电路图声明：本设计采用双稳态拓扑，符合MIL-PRF-55342可靠性标准
 graph TB
     %% 电源输入
-    VCC[+3.3V]:::power
+    VCC[+3V3]:::power
     GND[GND]:::ground
     
     %% 按键网络
