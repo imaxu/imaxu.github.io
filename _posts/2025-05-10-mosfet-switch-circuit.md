@@ -37,28 +37,39 @@ graph TB
 
 ### 详细电路图
 ```mermaid
-%% 低功耗MOSFET开关电路
-graph LR
-    %% 电源输入
-    VCC[+3.3V]:::power
-    GND[GND]:::ground
-    
+flowchart TB
+    %% 电源输入部分
+    VCC[+3.3V]
+    class VCC power
+    GND[GND]
+    class GND ground
+
     %% 按键网络
-    VCC -- R1(1MΩ) --> SW1[SW1]
-    SW1 -- C1(100nF) --> GND
-    SW1 -- R2(100kΩ) --> Q2[Q2:BC847]
-    
+    R1(1MΩ电阻)
+    SW1[轻触开关]
+    C1(100nF电容)
+    VCC --> R1 --> SW1
+    SW1 --> C1 --> GND
+    SW1 -->|100kΩ| Q2[BC847B]
+
     %% 控制逻辑
-    Q2 -- R3(10kΩ) --> GND
-    Q2 --> Q1[Q1:2N7002]
-    
+    Q2 -->|10kΩ| GND
+    Q2 --> Q1[2N7002K]
+
     %% 功率输出
-    VCC --> Q1
-    Q1 --> LOAD[负载]
+    VCC --> Q1 --> LOAD[负载]
     LOAD --> GND
-    
-    classDef power fill:#ffdd33,stroke:#333
-    classDef ground fill:#66cc99,stroke:#333
+
+    %% 类定义
+    classDef power fill:#ffdd33,stroke:#333;
+    classDef ground fill:#66cc99,stroke:#333;
+    classDef switch fill:#7cb4e4,stroke:#333;
+    classDef mosfet fill:#e39b7b,stroke:#333;
+    classDef bjt fill:#b381c9,stroke:#333;
+
+    class Q1 mosfet;
+    class Q2 bjt;
+    class SW1 switch;
 ```
 
 ## 完整BOM清单
