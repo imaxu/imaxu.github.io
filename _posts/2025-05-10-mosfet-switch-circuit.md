@@ -37,13 +37,11 @@ graph TB
 
 ### 详细电路图
 ```mermaid
-flowchart TB
-    %% 电源输入部分
+graph TB
+    %% 电源输入
     VCC[+3.3V]
-    class VCC power
     GND[GND]
-    class GND ground
-
+    
     %% 按键网络
     R1(1MΩ电阻)
     SW1[轻触开关]
@@ -51,25 +49,20 @@ flowchart TB
     VCC --> R1 --> SW1
     SW1 --> C1 --> GND
     SW1 -->|100kΩ| Q2[BC847B]
-
+    
     %% 控制逻辑
     Q2 -->|10kΩ| GND
     Q2 --> Q1[2N7002K]
-
+    
     %% 功率输出
     VCC --> Q1 --> LOAD[负载]
     LOAD --> GND
-
-    %% 类定义
+    
+    %% 样式定义
     classDef power fill:#ffdd33,stroke:#333;
     classDef ground fill:#66cc99,stroke:#333;
-    classDef switch fill:#7cb4e4,stroke:#333;
-    classDef mosfet fill:#e39b7b,stroke:#333;
-    classDef bjt fill:#b381c9,stroke:#333;
-
-    class Q1 mosfet;
-    class Q2 bjt;
-    class SW1 switch;
+    class VCC power;
+    class GND ground;
 ```
 
 ## 完整BOM清单
